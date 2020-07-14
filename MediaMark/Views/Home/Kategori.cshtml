@@ -1,0 +1,42 @@
+﻿
+
+@model IEnumerable<MediaMark.Models.Products>
+@using MediaMark.Models;
+
+@{
+    Category Kategori = ViewBag.Kategori as Category;
+    ViewBag.Title = Kategori.CategoryName;
+    IEnumerable<Category> KategoriListesi = ViewBag.KategoriListesi as IEnumerable<Category>;
+}
+
+<div class="jumbotron">
+    <h1>@Kategori.CategoryName</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Categories</h2>
+        <ul>
+            @foreach (var item in KategoriListesi)
+            {
+                <li>@Html.ActionLink(item.CategoryName, "Kategori", new { id = item.CategoryId })</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var item in ViewData.Model)
+            {
+                <div class="col-md-4" style="border:1px solid #808080">
+                    <h5>@item.ProductName</h5>
+                    <img src="/images/@(item.ProductID).jpg" style="max-width:100%;" />
+
+                    <p><a class="btn btn-default" href="@Url.Action("Produkt", "Home", new { id= item.ProductID })">
+                        More Details &raquo;</a> <span style="color:red;float:right;font-weight:bold;font-size:16px;">
+                        @item.ProductPrice den.</span></p>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

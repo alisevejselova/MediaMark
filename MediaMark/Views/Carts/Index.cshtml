@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MediaMark.Models.Cart>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="jumbotron">
+    <h1>Shopping Cart</h1>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.ProductName)
+            </td>
+            <td>
+                <form action="/Carts/CartUpdate">
+                    <input type="hidden" name="id" id="id" value="@item.CartID" style="width:50px;" />
+                    <input type="number" name="quantity" id="quantity" value="@item.Quantity" style="width:50px;" /> 
+                    <input type="submit" id="isprati" value="Update" />
+                </form>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice) den.
+            </td>
+
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.CartID })
+            </td>
+        </tr>
+    }
+    <tr>
+        <th>
+           Total
+        </th>
+        <th>
+            @Model.Sum(a => a.Quantity)
+        </th>
+        <th>
+            @Model.Sum(a => a.TotalPrice) den.
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td><a class="btn btn-default" href="@Url.Action("Index", "Home")">CONTINUE SHOPPING</a></td>
+        <td colspan="3" style="text-align:right;"><a class="btn btn-default" href="@Url.Action("SiparisTamamla", "Siparis")">CHECKOUT</a></td>
+    </tr>
+</table>
