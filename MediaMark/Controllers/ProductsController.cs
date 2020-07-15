@@ -133,13 +133,13 @@ namespace MediaMark.Controllers
             {
                 return NotFound();
             }
-
             var products = await _context.Products.FindAsync(id);
             if (products == null)
             {
                 return NotFound();
             }
             ViewData["KategoriID"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryName");
+            ViewData["ProductID"] = products.ProductID;
             return View(products);
         }
 
@@ -154,7 +154,7 @@ namespace MediaMark.Controllers
             {
                 return NotFound();
             }
-
+          
             if (ModelState.IsValid)
             {
                 try

@@ -25,7 +25,7 @@ namespace MediaMark.Controllers
         public ActionResult AddToCart(int? quantity, int id) // quantity po default e eden
         {
             //momentalno imam samo eden korisnik vo baza ,nemam registration i login
-            int userID = 1;
+            int userID = 2;
             Cart CartProduct = _context.Cart.FirstOrDefault(a => a.RefProductID == id && a.RefUserID == userID);
             //Cart CartProducts = _context.Cart.FirstOrDefault(a => a.RefProductID == id);
             Products product = _context.Products.Find(id);
@@ -56,7 +56,7 @@ namespace MediaMark.Controllers
 
         public ActionResult Index()
         {
-            int userID = 1;
+            int userID = 2;
             
             var cart = _context.Cart.Where(a => a.RefUserID == userID).Include(s => s.Products);
           //  var cart = _context.Cart.Include(s => s.Products);

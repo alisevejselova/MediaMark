@@ -18,7 +18,10 @@ namespace MediaMark.Models
         public string UserName { get; set; }
         [Required]
         public string Email { get; set; }
-
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string ConfirmPassword { get; set; }
 
         [Display(Name = "Shopping Cart")]
         public ICollection<Cart> ShoppingCart { get; set; }

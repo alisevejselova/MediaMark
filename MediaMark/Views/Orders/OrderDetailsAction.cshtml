@@ -3,7 +3,6 @@
     ViewData["Title"] = "OrderDetailsAction";
 }
 
-<h1>OrderDetailsAction</h1>
 
 @model IEnumerable<MediaMark.Models.OrderDetails>
 <div class="jumbotron">
@@ -35,7 +34,12 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Products.ProductName)
+                
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.RefProductID">
+                    @Html.DisplayFor(modelItem => item.Products.ProductName)
+                </a>
+                
+               
             </td>
 
         </tr>
