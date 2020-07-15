@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Products</h4>
+
+<h4>Edit Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,15 +24,19 @@
                 <span asp-validation-for="ProductDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductPrice" class="control-label"></label>
-                <input asp-for="ProductPrice" class="form-control" />
+                <label asp-for="ProductPrice" class="control-label"></label> 
+                <input asp-for="ProductPrice" class="form-control" /> den.
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RefCateogryID" class="control-label"></label>
-                <input asp-for="RefCateogryID" class="form-control" />
+                <label asp-for="RefCateogryID" class="control-label" hidden></label>Category
+                <select asp-for="RefCateogryID" class="form-control" asp-items="ViewBag.KategoriID">
+                    <option value=null>Select</option>
+                </select>
                 <span asp-validation-for="RefCateogryID" class="text-danger"></span>
             </div>
+
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

@@ -36,9 +36,10 @@
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RefCateogryID" class="control-label"></label>
-                <input asp-for="RefCateogryID" class="form-control" />
-                <span asp-validation-for="RefCateogryID" class="text-danger"></span>
+                <label asp-for="RefCateogryID" class="control-label" hidden></label> Category
+                <select asp-for="RefCateogryID" class="form-control" asp-items="ViewBag.KategoriID">
+                    <option value=null>Select</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

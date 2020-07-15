@@ -29,5 +29,13 @@ namespace MediaMark.Models
 
 
         public ICollection<OrderDetails> OrderDetail { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return String.Format("{0} {1}", FirstName, LastName);
+            }
+        }
     }
 }

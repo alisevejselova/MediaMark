@@ -28,10 +28,25 @@ namespace MediaMark.Controllers
         }
 
        // GET: Products
-        public async Task<IActionResult> Index()
+       
+        public ActionResult Index(string sortOrder)
         {
-            return View(await _context.Products.ToListAsync());
+            ViewBag.PriceSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+ 
+            var products = from s in  _context.Products.Include(m => m.Category)
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.ProductPrice);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.ProductPrice);
+                    break;
+            }
+            return View(products.ToList());
         }
+   
 
 
         // GET: Products/Details/5
@@ -42,37 +57,26 @@ namespace MediaMark.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
+            var products = await _context.Products.Include(m => m.Category)
                 .FirstOrDefaultAsync(m => m.ProductID == id);
+           
             if (products == null)
             {
                 return NotFound();
             }
-
+           ViewData["ID"] = _context.Products.Where(t => t.ProductID == id).Select(t => t.ProductID).FirstOrDefault();
+          
             return View(products);
         }
 
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["KategoriID"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryName");
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("ProductID,ProductName,ProductDescription,ProductPrice,RefCateogryID")] Products products)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(products);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(products);
-        //}
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductPicture Vmodel)
@@ -97,8 +101,11 @@ namespace MediaMark.Controllers
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                ViewData["KategoriID"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryName", product.RefCateogryID);
                 return RedirectToAction(nameof(Index));
             }
+            
+            
             return View();
         }
         private string UploadedFile(ProductPicture model)
@@ -132,6 +139,7 @@ namespace MediaMark.Controllers
             {
                 return NotFound();
             }
+            ViewData["KategoriID"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryName");
             return View(products);
         }
 
@@ -167,6 +175,7 @@ namespace MediaMark.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["KategoriID"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryName", products.RefCateogryID);
             return View(products);
         }
 
@@ -178,13 +187,13 @@ namespace MediaMark.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
+            var products = await _context.Products.Include( m => m.Category)
                 .FirstOrDefaultAsync(m => m.ProductID == id);
             if (products == null)
             {
                 return NotFound();
             }
-
+            ViewData["ID"] = _context.Products.Where(t => t.ProductID == id).Select(t => t.ProductID).FirstOrDefault();
             return View(products);
         }
 
@@ -194,6 +203,14 @@ namespace MediaMark.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var products = await _context.Products.FindAsync(id);
+            //izbrisi ja slikata
+            string path = Path.Combine(_webHostEnvironment.WebRootPath, "images", products.Picture);
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)//check file exsit or not
+            {
+                file.Delete();
+            }
+
             _context.Products.Remove(products);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

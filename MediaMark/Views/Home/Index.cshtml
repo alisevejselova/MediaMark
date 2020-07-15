@@ -6,9 +6,12 @@
     IEnumerable<Products> LastProducts = ViewBag.LastProducts as IEnumerable<Products>;
 }
 
-<div class="jumbotron">
-    <h1>Products</h1>
-</div>
+<div class="jumbotron"><img src="/images/Media_Markt.jpg"  width="100%" height="100%">
+        
+    </div>
+
+
+
 
 <div class="row">
     <div class="col-md-3">
@@ -28,12 +31,15 @@
             {
                 <div class="col-md-4" style="border:1px solid #808080">
                     <h5>@item.ProductName</h5>
-                    <img src="/images/@(item.ProductID).jpg" style="max-width:100%;" />
+                    <img src="/images/@(item.ProductID).jpg" style="max-width: 100%;" />
 
                     <p>
                         <a class="btn btn-default" href="@Url.Action("Produkt", "Home", new { id= item.ProductID })">
                             More Details &raquo;
-                        </a> <span style="color:red;float:right;font-weight:bold;font-size:16px;">
+                        </a> <span style="        color: red;
+        float: right;
+        font-weight: bold;
+        font-size: 16px;">
                             @item.ProductPrice den.
                         </span>
                     </p>
@@ -43,4 +49,3 @@
         </div>
     </div>
 </div>
-.Contains(Convert.ToString(e.Field<decimal>("DETAIL_HAZ_PK")))

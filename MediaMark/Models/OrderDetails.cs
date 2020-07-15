@@ -17,9 +17,6 @@ namespace MediaMark.Models
         public Products Products { get; set; }
         public int Quantity { get; set; }
 
-        [Display(Name = "Unit Price")]
-        public int UnitPrice { get; set; }
-
         [Display(Name = "Total Price")]
         public int TotalPrice { get; set; }
 

@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create new product</a>
 </p>
+
+<p>Sort by:@Html.ActionLink("Price", "Index", new { sortOrder = ViewBag.PriceSortParm })</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -19,18 +21,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.ProductPrice)
             </th>
+            <th>
+               Category
+            </th>
            
+
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @{ if (item.Picture != null)
@@ -40,25 +46,30 @@
                              height="60" width="60"
                              asp-append-version="true" />
                     }
-                   
+
                 }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
+                @Html.DisplayFor(modelItem => item.ProductPrice) den.
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
+                @if (item.RefCateogryID != null)
+                {
+                    <a asp-controller="Home" asp-action="Kategori" asp-route-id="@item.RefCateogryID"> 
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)</a>
+                }
             </td>
-           
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
