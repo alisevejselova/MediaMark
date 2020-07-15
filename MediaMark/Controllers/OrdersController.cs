@@ -37,8 +37,8 @@ namespace MediaMark.Controllers
 
         public ActionResult OrderComplete()
         {   // imam samo eden korisnik vo baza.
-            int userID = 1;
-            IEnumerable<Cart> cartProducts = _context.Cart.Where(a => a.RefUserID == 1).ToList();
+            int userID = 2;
+            IEnumerable<Cart> cartProducts = _context.Cart.Where(a => a.RefUserID == 2).ToList();
 
             string ClientId = "100300000"; // Bankadan aldığınız mağaza kodu
             string Amount = cartProducts.Sum(a => a.TotalPrice).ToString(); // sepettteki ürünlerin toplam fiyatı
@@ -81,7 +81,7 @@ namespace MediaMark.Controllers
 
         //public ActionResult Completed()
         //{
-        //    int userID = 1;
+        //    int userID = 2;
 
         //    Order order = new Order()
         //    {

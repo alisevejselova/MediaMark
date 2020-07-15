@@ -25,7 +25,9 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Products.ProductName)
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.RefProductID">
+                    @Html.DisplayFor(modelItem => item.Products.ProductName)
+                </a>
             </td>
             <td>
                 <form action="/Carts/CartUpdate">
