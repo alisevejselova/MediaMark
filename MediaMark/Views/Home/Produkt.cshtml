@@ -33,10 +33,10 @@
         <div class="row">
             <div class="col-md-6"><img src="/images/@(Model.ProductID).jpg" style="max-width:100%;" /></div>
             <div class="col-md-6">
-                Product Price : <span style="color:red;font-weight:bold;font-size:16px;">@Model.ProductPrice den.</span><br />
+                Product Price : <span style="color:red;font-weight:bold;font-size:16px;">@Model.ProductPrice den.</span><br /><br />
                 <form action="/Carts/AddToCart">
                     <input type="hidden" name="id" id="id" value="@Model.ProductID" style="width:50px;" />
-                    <input type="number" name="quantity" id="quantity" value="1" style="width:50px;" />
+                    Quantity<input type="number" name="quantity" id="quantity" value="1" style="width:50px;" /><br /><br />
                     <input type="submit" id="gonder" value="ADD TO CART" />
                 </form>
             </div>
